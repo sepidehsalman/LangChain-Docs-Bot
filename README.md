@@ -33,8 +33,10 @@ pip install -r requirements.txt
 
 ### 2. Create a .env file in the project root and add your Gemini API key
 
-GOOGLE_API_KEY= YOUR_API_KEY_HERE
+GOOGLE_API_KEY= YOUR_API_KEY
 
 ### 3. Run the chatbot
 
+```bash
 python main.py
+```
