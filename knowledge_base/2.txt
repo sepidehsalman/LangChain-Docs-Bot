@@ -1,0 +1,21 @@
+Agents
+Agents combine language models with tools to create systems that can reason about tasks, decide which tools to use, and iteratively work towards solutions.
+create_agent provides a production-ready agent implementation.
+An LLM Agent runs tools in a loop to achieve a goal. An agent runs until a stop condition is met - i.e., when the model emits a final output or an iteration limit is reached.
+
+LLMs and augmentations
+Workflows and agentic systems are based on LLMs and the various augmentations you add to them. Tool calling, structured outputs, and short term memory are a few options for tailoring LLMs to your needs.
+
+Prompt chaining
+Prompt chaining is when each LLM call processes the output of the previous call. It’s often used for performing well-defined tasks that can be broken down into smaller, verifiable steps. Some examples include:
+Translating documents into different languages
+Verifying generated content for consistency
+
+
+Parallelization
+With parallelization, LLMs work simultaneously on a task. This is either done by running multiple independent subtasks at the same time, or running the same task multiple times to check for different outputs. Parallelization is commonly used to:
+Split up subtasks and run them in parallel, which increases speed
+Run tasks multiple times to check for different outputs, which increases confidence
+Some examples include:
+Running one subtask that processes a document for keywords, and a second subtask to check for formatting errors
+Running a task multiple times that scores a document for accuracy based on different criteria, like the number of citations, the number of sources used, and the quality of the sources

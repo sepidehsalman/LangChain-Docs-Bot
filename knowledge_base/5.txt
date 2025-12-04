@@ -1,0 +1,9 @@
+Subgraphs
+This guide explains the mechanics of using subgraphs. A subgraph is a graph that is used as a node in another graph.
+Subgraphs are useful for:
+Building multi-agent systems
+Re-using a set of nodes in multiple graphs
+Distributing development: when you want different teams to work on different parts of the graph independently, you can define each part as a subgraph, and as long as the subgraph interface (the input and output schemas) is respected, the parent graph can be built without knowing any details of the subgraph
+When adding subgraphs, you need to define how the parent graph and the subgraph communicate:
+Invoke a graph from a node — subgraphs are called from inside a node in the parent graph
+Add a graph as a node — a subgraph is added directly as a node in the parent and shares state keys with the parent
