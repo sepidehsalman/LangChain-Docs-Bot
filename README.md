@@ -21,13 +21,6 @@ All `.txt` files placed in the `knowledge_base/` folder are automatically proces
 - Python **3.8+**
 - A Google **Gemini API Key**
 
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-
-```
-
 ⚙️ Setup & Run
 
 Follow these steps to run the chatbot:
@@ -38,10 +31,10 @@ Follow these steps to run the chatbot:
 pip install -r requirements.txt
 ```
 
-### Create a .env file in the project root and add your Gemini API key:
+### 2. Create a .env file in the project root and add your Gemini API key
 
-GOOGLE_API_KEY=YOUR_API_KEY_HERE
+GOOGLE_API_KEY= YOUR_API_KEY_HERE
 
-### Run the chatbot:
+### 3. Run the chatbot
 
 python main.py
