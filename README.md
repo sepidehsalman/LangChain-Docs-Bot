@@ -7,12 +7,12 @@ All `.txt` files placed in the `knowledge_base/` folder are automatically proces
 
 ## 📌 Features
 
-- Loads multiple `.txt` files as knowledge sources  
-- Embeds all documents using **Gemini Embeddings**  
-- Stores vectors in a **FAISS index**  
-- Uses **Retrieval-Augmented Generation (RAG)**  
-- Simple **CLI interface** for interactive chatting  
-- Custom system prompt to control chatbot behavior  
+- Loads multiple `.txt` files as knowledge sources
+- Embeds all documents using **Gemini Embeddings**
+- Stores vectors in a **FAISS index**
+- Uses **Retrieval-Augmented Generation (RAG)**
+- Simple **CLI interface** for interactive chatting
+- Custom system prompt to control chatbot behavior
 
 ---
 
@@ -25,3 +25,23 @@ Install dependencies:
 
 ```bash
 pip install -r requirements.txt
+
+```
+
+⚙️ Setup & Run
+
+Follow these steps to run the chatbot:
+
+### 1. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Create a .env file in the project root and add your Gemini API key:
+
+GOOGLE_API_KEY=YOUR_API_KEY_HERE
+
+### Run the chatbot:
+
+python main.py
