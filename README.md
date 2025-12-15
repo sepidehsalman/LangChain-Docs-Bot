@@ -52,6 +52,16 @@ To reduce risk of unsafe or hallucinated outputs:
 
 ---
 
+## Retrieval Evaluation
+
+To evaluate retrieval quality, the system logs the Top-K retrieved document chunks
+along with their similarity scores for each query. This allows manual inspection
+of relevance and helps identify cases where insufficient or noisy context is retrieved.
+If no chunk meets a minimum relevance threshold, the system safely refuses to answer
+instead of hallucinating.
+
+---
+
 ## 📦 Requirements
 
 - Python **3.8+**

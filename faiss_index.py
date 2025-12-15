@@ -5,10 +5,29 @@ from langchain_classic.chains import RetrievalQA
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from config import EMBEDDING_MODEL, CHUNK_SIZE, CHUNK_OVERLAP, TOP_K
+from langchain_core.prompts import PromptTemplate
 
 from dotenv import load_dotenv
 
 load_dotenv()
+
+prompt = PromptTemplate(
+    input_variables=["context", "question"],
+    template="""
+You are a helpful assistant that answers questions strictly based on the context below.
+
+If the answer is not contained in the context, respond with:
+"I could not find the answer in the provided documents."
+
+Context:
+{context}
+
+Question:
+{question}
+
+Answer:
+""",
+)
 
 
 def load_documents_from_directory(directory: str):
@@ -41,16 +60,6 @@ def load_documents_to_faiss(documents: list):
 def ask_question(question: str, faiss_index):
     retriever = faiss_index.as_retriever(search_kwargs={"k": TOP_K})
 
-    # Define your structured prompt (you can modify this to be more specific)
-    prompt_structure = f"""
-   You are a helpful assistant that answers questions strictly based on the retrieved documents.
-
-   If the documents do NOT contain enough information to answer the question,
-   clearly respond with:
-   "I could not find the answer in the provided documents."
-   Question: {question}
-    """
-
     llm = ChatGoogleGenerativeAI(
         model="gemini-2.5-flash",
         temperature=0.2,
@@ -60,6 +69,9 @@ def ask_question(question: str, faiss_index):
     )
 
     qa_chain = RetrievalQA.from_chain_type(
-        llm=llm, chain_type="stuff", retriever=retriever
+        llm=llm,
+        chain_type="stuff",
+        retriever=retriever,
+        chain_type_kwargs={"prompt": prompt},
     )
-    return qa_chain.invoke(prompt_structure)
+    return qa_chain.invoke({"query": question})
