@@ -4,38 +4,51 @@ from faiss_index import (
     ask_question,
     load_documents_to_faiss,
 )
+from config import TOP_K
 
 
 # Function to handle the chatbot interaction
 def start_chat():
     print("Welcome to the Chatbot! Type 'exit' to end the chat.\n")
 
+    # Paths
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     KB_DIR = os.path.join(BASE_DIR, "knowledge_base")
-    # Documents
-    documents = load_documents_from_directory(KB_DIR)
 
-    # Load documents into FAISS
+    # Load and index documents
+    documents = load_documents_from_directory(KB_DIR)
     faiss_index = load_documents_to_faiss(documents)
 
     while True:
-        # Get user input (question)
+        # Get user input
         question = input("You: ").strip()
 
-        if not question:
-            print("AI: Please ask a valid question.\n")
-            continue
         # Exit condition
         if question.lower() == "exit":
             print("Goodbye!")
             break
 
-        # Get the answer from the model
-        answer = ask_question(question, faiss_index)
+        # Validate empty input
+        if not question:
+            print("AI: Please enter a valid question.\n")
+            continue
 
+        # Ask question
+        answer = ask_question(question, faiss_index)
         result = answer.get("result", "").strip()
-        # If empty → tell user it was not found
-        if not result:
-            print("AI: It did not find anything.\n")
+
+        # Print result
+        print(f"AI: {result}\n")
+
+        # Print top-K retrieval sources (for reviewer transparency)
+        print("--- Retrieved Sources (Top-K) ---")
+        docs_with_scores = faiss_index.similarity_search_with_score(question, k=TOP_K)
+        if docs_with_scores:
+            for i, (doc, score) in enumerate(docs_with_scores, 1):
+                source = doc.metadata.get("source", "Unknown")
+                snippet = doc.page_content[:150].replace("\n", " ")
+                print(
+                    f"[{i}] Source: {source} | Score: {score:.4f} | Snippet: {snippet}...\n"
+                )
         else:
-            print(f"AI: {result}\n")
+            print("No relevant documents found.\n")
