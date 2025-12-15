@@ -20,8 +20,11 @@ def start_chat():
 
     while True:
         # Get user input (question)
-        question = input("You: ")
+        question = input("You: ").strip()
 
+        if not question:
+            print("AI: Please ask a valid question.\n")
+            continue
         # Exit condition
         if question.lower() == "exit":
             print("Goodbye!")

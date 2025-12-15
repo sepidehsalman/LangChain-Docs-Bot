@@ -1,0 +1,4 @@
+EMBEDDING_MODEL = "models/gemini-embedding-001"
+CHUNK_SIZE = 800
+CHUNK_OVERLAP = 200
+TOP_K = 5

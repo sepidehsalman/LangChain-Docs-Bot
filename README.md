@@ -5,6 +5,35 @@ All `.txt` files placed in the `knowledge_base/` folder are automatically proces
 
 ---
 
+## Project Scope
+
+This project implements a local Retrieval-Augmented Generation (RAG) chatbot that:
+✔️ Uses a FAISS vector index for retrieval
+✔️ Supports plain `.txt` knowledge bases
+✔️ Runs as a command-line interface
+
+This project does _not_ include:
+❌ Web UI
+❌ User authentication
+❌ Advanced safety filters beyond prompt constraints
+
+---
+
+## Guardrails & Responsible Use
+
+To reduce risk of unsafe or hallucinated outputs:
+
+- We use strict system prompts to limit the LLM to context from indexed documents only.
+- User queries are checked for emptiness before processing.
+- Files loaded into FAISS are filtered to `.txt` formats only.
+
+⚠️ Limitations
+
+- The system does not verify correctness of responses beyond retrieved context.
+- It should not be used for critical advice (e.g., medical, legal).
+
+---
+
 ## 📌 Features
 
 - Loads multiple `.txt` files as knowledge sources
@@ -13,6 +42,13 @@ All `.txt` files placed in the `knowledge_base/` folder are automatically proces
 - Uses **Retrieval-Augmented Generation (RAG)**
 - Simple **CLI interface** for interactive chatting
 - Custom system prompt to control chatbot behavior
+
+---
+
+## Sample Interaction
+
+- Ask a question about the documents: What is X?
+- Answer: X is defined as…
 
 ---
 
